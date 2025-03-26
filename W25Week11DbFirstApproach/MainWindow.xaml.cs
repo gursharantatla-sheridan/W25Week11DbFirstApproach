@@ -67,5 +67,44 @@ namespace W25Week11DbFirstApproach
                 MessageBox.Show("Invalid ID. Please try again");
             }
         }
+
+        private void btnInsert_Click(object sender, RoutedEventArgs e)
+        {
+            Student std = new Student();
+            std.StudentName = txtName.Text;
+            std.StandardId = (int)cmbStandard.SelectedValue;
+
+            db.Students.Add(std);
+            db.SaveChanges();
+
+            LoadStudents();
+            MessageBox.Show("New student added");
+        }
+
+        private void btnUpdate_Click(object sender, RoutedEventArgs e)
+        {
+            int id = int.Parse(txtId.Text);
+            var std = db.Students.Find(id);
+
+            std.StudentName = txtName.Text;
+            std.StandardId = (int)cmbStandard.SelectedValue;
+
+            db.SaveChanges();
+
+            LoadStudents();
+            MessageBox.Show("Student updated");
+        }
+
+        private void btnDelete_Click(object sender, RoutedEventArgs e)
+        {
+            int id = int.Parse(txtId.Text);
+            var std = db.Students.Find(id);
+
+            db.Students.Remove(std);
+            db.SaveChanges();
+
+            LoadStudents();
+            MessageBox.Show("Student deleted");
+        }
     }
 }
