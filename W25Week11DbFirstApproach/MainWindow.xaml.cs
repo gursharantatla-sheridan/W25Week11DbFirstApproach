@@ -33,7 +33,12 @@ namespace W25Week11DbFirstApproach
 
         private void LoadStudents()
         {
-            var students = db.Students.ToList();
+            //var students = db.Students.ToList();
+
+            var students = (from s in db.Students
+                           select new { s.StudentID, s.StudentName, s.Standard.StandardName })
+                           .ToList();
+
             grdStudents.ItemsSource = students;
         }
 
